@@ -1,0 +1,258 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Pipe Tape Calculator</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!-- Compressed site CSS from target site -->
+<link rel="stylesheet" href="site_css_compressed.css">
+
+<style type="text/css">
+
+/*CSS for the calculator*/
+
+.PTC_Container {
+    max-width: 500px;
+    border: 2px solid lightgray;
+    padding: 15px;
+    background-color: rgb(244, 244, 244);
+}
+
+.PTC_Container div {
+    margin-bottom: 21px;
+}
+
+.PTC_Container form div label{
+    padding-right: 0;
+}
+
+.PTC_form_validation {
+    color: red;
+}
+
+.PTC_number_of_rolls {
+    font-weight: bold;
+}
+
+#PTC_submit_button {
+    margin: 21px auto 21px auto;
+    width: 100%;
+}
+.PTC_Output {
+    font-size: larger;
+}
+
+#PTC_number_of_rolls {
+    font-size: xx-large;
+    padding: 0;
+}
+
+.CIblock {
+    border: 2px solid lightgrey;
+    padding: 10px;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.CIfloat2 {
+    float: left;
+    width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+	.CIfloat2 {
+	width: 49%;
+	}
+}
+
+.CIfloat2::after {
+  clear: both;
+  display: block;
+}
+
+</style>
+
+</head>
+
+<body text="#D6D6D6">
+
+    <div class="container">
+
+    <div class="PTC_Container">
+
+        <h2>Number of Rolls Pipe Tape Calculator</h2>
+        <p>Use the below calculator to calculate how many rolls of tape you will need to mark your pipe work. </p><br>
+
+        <form name="PTC_Form">
+
+        <div>
+            <label for="PTC_length_of_pipe">Length of Pipe (m):</label>
+            <input type="text" id="PTC_length_of_pipe" name="length_of_pipe" />
+            <p class="PTC_form_validation" id="PTC_length_of_pipe_validation"></p>
+        </div>
+
+        <div>
+            <label for="PTC_diameter_of_pipe">Outer Diameter of Pipe (mm):</label>
+            <input type="text" id="PTC_diameter_of_pipe" name="diameter_of_pipe" />
+            <p class="PTC_form_validation" id="PTC_diameter_of_pipe_validation"></p>
+        </div>
+
+        <div>
+            <label for="PTC_direction_changes_of_pipe">Number of changes or direction of pipe:</label>
+            <input type="text" id="PTC_direction_changes_of_pipe" name="direction_changes_of_pipe" value="0"/>
+            <p class="PTC_form_validation" id="PTC_direction_changes_of_pipe_validation"></p>
+        </div>
+
+        <div>
+            <label for="PTC_walls_passed_through_of_pipe">Walls/floors passed through:</label>
+            <input type="text" id="PTC_walls_passed_through_of_pipe" name="walls_passed_through_of_pipe" value="0"/>
+            <p class="PTC_form_validation" id="PTC_walls_passed_through_of_pipe_validation"></p>
+        </div>
+
+        <div>
+            <label for="PTC_valves_of_pipe">Valves in pipe:</label>
+            <input type="text" id="PTC_valves_of_pipe" name="valves_of_pipe" value="0"/>
+            <p class="PTC_form_validation" id="PTC_valves_of_pipe_validation"></p>
+        </div>
+
+            <div class="CIblock" style="margin-bottom:0;">
+                <p>Type of Tape:</p>
+
+                <div class="CIfloat2" style="margin-bottom:0;">
+                    <label for="PTC_tape_type_InPI">Indoor Pipe ID Tape (33m):</label>
+                    <input type="radio" id="PTC_tape_type_InPI" name="PTC_tape_type" value="33" checked/>
+                </div>
+
+                <div class="CIfloat2" style="margin-bottom:0;">
+                    <label for="PTC_tape_type_AWPI">All Weather Pipe ID Tape (23m):</label>
+                    <input type="radio" id="PTC_tape_type_AWPI" name="PTC_tape_type" value="23"/>
+                </div>
+
+                <div style="clear: both; margin-bottom:0;"></div>
+
+            </div>
+
+            <button class="btn btn-primary button" id="PTC_submit_button" type="button" onclick="PTC_Submit()">Submit</button>
+
+        </form>
+
+        <div class="PTC_Output" style="margin-bottom:0;">
+            <p>Number of rolls required: <span id="PTC_number_of_rolls">0</span> rolls</p>
+        </div>
+
+        <script>
+            function PTC_Submit() {
+
+                //Length of pipe Validation
+                var length_of_pipe;
+                var PTC_length_of_pipe_validation = "Please enter a positive number.";
+
+                length_of_pipe = document.getElementById("PTC_length_of_pipe").value;
+
+                if (isNaN(length_of_pipe) || length_of_pipe < 0 || length_of_pipe == 0) {
+                    PTC_length_of_pipe_validation = "Please enter a positive number."
+                }
+                else {
+                    PTC_length_of_pipe_validation = ""
+                }
+
+                document.getElementById("PTC_length_of_pipe_validation").innerHTML = PTC_length_of_pipe_validation
+
+                //Diameter of pipe Validation
+                var diameter_of_pipe;
+                var PTC_diameter_of_pipe_validation = "Please enter a positive number.";
+
+                diameter_of_pipe = document.getElementById("PTC_diameter_of_pipe").value;
+
+                if (isNaN(diameter_of_pipe) || diameter_of_pipe < 0 || diameter_of_pipe == 0) {
+                    PTC_diameter_of_pipe_validation = "Please enter a positive number."
+                }
+                else {
+                    PTC_diameter_of_pipe_validation = ""
+                }
+
+                document.getElementById("PTC_diameter_of_pipe_validation").innerHTML = PTC_diameter_of_pipe_validation
+
+                //Direction change of pipe Validation
+                var direction_changes_of_pipe;
+                var PTC_direction_changes_of_pipe_validation = "Please enter a positive number.";
+
+                direction_changes_of_pipe = document.getElementById("PTC_direction_changes_of_pipe").value;
+
+                if (isNaN(direction_changes_of_pipe) || direction_changes_of_pipe < 0) {
+                    PTC_direction_changes_of_pipe_validation = "Please enter a positive number."
+                }
+                else {
+                    PTC_direction_changes_of_pipe_validation = ""
+                }
+
+                document.getElementById("PTC_direction_changes_of_pipe_validation").innerHTML = PTC_direction_changes_of_pipe_validation
+
+                //Walls passed through of pipe Validation
+                var walls_passed_through_of_pipe;
+                var PTC_walls_passed_through_of_pipe = "Please enter a positive number.";
+
+                walls_passed_through_of_pipe = document.getElementById("PTC_walls_passed_through_of_pipe").value;
+
+                if (isNaN(walls_passed_through_of_pipe) || walls_passed_through_of_pipe < 0) {
+                    PTC_walls_passed_through_of_pipe_validation = "Please enter a positive number."
+                }
+                else {
+                    PTC_walls_passed_through_of_pipe_validation = ""
+                }
+
+                document.getElementById("PTC_walls_passed_through_of_pipe_validation").innerHTML = PTC_walls_passed_through_of_pipe_validation
+
+                //Valves of pipe Validation
+                var valves_of_pipe;
+                var PTC_valves_of_pipe = "Please enter a positive number.";
+
+                valves_of_pipe = document.getElementById("PTC_valves_of_pipe").value;
+
+                if (isNaN(valves_of_pipe) || valves_of_pipe < 0) {
+                    PTC_valves_of_pipe_validation = "Please enter a positive number."
+                }
+                else {
+                    PTC_valves_of_pipe_validation = ""
+                }
+
+                document.getElementById("PTC_valves_of_pipe_validation").innerHTML = PTC_valves_of_pipe_validation
+
+                //Calculation
+                var PTC_number_of_rolls;
+                var number_of_repetitions;
+                var PTC_tape_type;
+                var circumference_of_pipe = 0;
+                var frequency_of_repetition = 7;
+                var overlap = 0.1;
+
+                direction_changes_of_pipe = Number(direction_changes_of_pipe);
+                walls_passed_through_of_pipe = Number(walls_passed_through_of_pipe);
+                valves_of_pipe = Number(valves_of_pipe);
+
+                var length_of_roll = document.querySelector('input[name="PTC_tape_type"]:checked').value;
+
+                circumference_of_pipe = (Math.PI * diameter_of_pipe)/1000;
+
+                number_of_repetitions = Math.ceil((length_of_pipe/frequency_of_repetition) 
+                                        + direction_changes_of_pipe
+                                        + (2*walls_passed_through_of_pipe) 
+                                        + valves_of_pipe);
+
+                PTC_number_of_rolls = Math.ceil(number_of_repetitions/(Math.floor(length_of_roll/(circumference_of_pipe + overlap))));
+
+                document.getElementById("PTC_number_of_rolls").innerHTML = PTC_number_of_rolls;
+
+            }
+        </script>
+    </div>
+
+    </div>
+    
+</body>
+</html>
